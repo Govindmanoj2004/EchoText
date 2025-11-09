@@ -1,6 +1,6 @@
-# 🎙️ EchoType – Real-Time Voice-to-Text Captioning App (MERN + Vosk)
+# 🎙️ EchoText – Real-Time Voice-to-Text Captioning App (MERN + Vosk)
 
-**EchoType** is an efficient, cost-free, and real-time voice-to-text captioning web application built on the **MERN** (MongoDB, Express.js, React.js, Node.js) stack, integrated with the powerful, open-source **Vosk Speech Recognition API**.
+**EchoText** is an efficient, cost-free, and real-time voice-to-text captioning web application built on the **MERN** (MongoDB, Express.js, React.js, Node.js) stack, integrated with the powerful, open-source **Vosk Speech Recognition API**.
 
 This project provides users with an accurate system to convert live voice or audio input into readable text captions in real-time, ideal for accessibility, note-taking, and development.
 
@@ -61,7 +61,7 @@ This project provides users with an accurate system to convert live voice or aud
 1.  **Clone the repository:**
     ```bash
     git clone [your-repo-link]
-    cd EchoType
+    cd EchoText
     ```
 2.  **Install dependencies:**
     ```bash

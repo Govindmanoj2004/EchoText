@@ -12,6 +12,27 @@ const Home = () => {
   const [liveCaption, setLiveCaption] = useState("");
   const [captionIndex, setCaptionIndex] = useState(0);
 
+  // Animation variants for page entrance
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { type: "spring", stiffness: 100 },
+    },
+  };
+
   const demoCaptions = [
     "Listening for audio input...",
     "Detecting voice patterns...",
@@ -19,7 +40,7 @@ const Home = () => {
     "Processing speech clarity...",
     "Identifying background noise levels...",
     "Calculating confidence scores...",
-    "Finalizing audio analysis..."
+    "Finalizing audio analysis...",
   ];
 
   useEffect(() => {
@@ -56,7 +77,7 @@ const Home = () => {
     setIsRecording(false);
     setIsAnimating(false);
     setLiveCaption("");
-    
+
     // After brief red border, reset to normal
     setTimeout(() => {
       setIsStopping(false);
@@ -88,7 +109,7 @@ const Home = () => {
     if (!isAnimating) {
       return {
         initial: { scaleY: 0.1 },
-        animate: { scaleY: 0.1 }
+        animate: { scaleY: 0.1 },
       };
     }
 
@@ -106,10 +127,24 @@ const Home = () => {
     };
   };
 
-  const sampleText = "Voice analysis complete. The audio patterns show consistent frequency modulation with optimal clarity. Background noise is minimal and speech recognition confidence is high.";
+  const sampleText =
+    "Voice analysis complete. The audio patterns show consistent frequency modulation with optimal clarity. Background noise is minimal and speech recognition confidence is high.";
 
   return (
-    <div className={styles.wrapper}>
+    <motion.div
+      className={styles.wrapper}
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+    >
+      {/* Background Pattern */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+        className={styles.backgroundPattern}
+      />
+
       <AnimatePresence>
         {showText && (
           <motion.div
@@ -136,7 +171,7 @@ const Home = () => {
                     "Analysis Complete"
                   )}
                 </h3>
-                <button 
+                <button
                   className={styles.closeButton}
                   onClick={handleClosePrompt}
                   aria-label="Close analysis"
@@ -144,7 +179,7 @@ const Home = () => {
                   ×
                 </button>
               </div>
-              
+
               <div className={styles.textBody}>
                 {isRecording ? (
                   <div className={styles.liveCaptionContainer}>
@@ -169,7 +204,7 @@ const Home = () => {
                             duration: 1,
                             repeat: Infinity,
                             delay: i * 0.1,
-                            ease: "easeInOut"
+                            ease: "easeInOut",
                           }}
                         />
                       ))}
@@ -179,10 +214,12 @@ const Home = () => {
                   <p>{sampleText}</p>
                 )}
               </div>
-              
+
               <div className={styles.textFooter}>
                 <span className={styles.timestamp}>
-                  {isRecording ? "Recording in progress..." : "Analysis completed just now"}
+                  {isRecording
+                    ? "Recording in progress..."
+                    : "Analysis completed just now"}
                 </span>
                 {!isRecording && (
                   <div className={styles.confidence}>
@@ -197,11 +234,9 @@ const Home = () => {
       </AnimatePresence>
 
       {/* Floating Bubble Container */}
-      <motion.div 
+      <motion.div
         className={styles.floatingBubble}
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.2, type: "spring", stiffness: 200 }}
+        variants={itemVariants}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
@@ -219,12 +254,14 @@ const Home = () => {
             </motion.div>
           )}
         </AnimatePresence>
-        
-        <div 
+
+        <div
           className={`${styles.bubble} ${
-            isRecording ? styles.recording : 
-            isStopping ? styles.stopping : 
-            styles.normal
+            isRecording
+              ? styles.recording
+              : isStopping
+              ? styles.stopping
+              : styles.normal
           }`}
           onClick={handleBubbleClick}
           onMouseEnter={handleBubbleHover}
@@ -250,10 +287,7 @@ const Home = () => {
           </div>
         </div>
       </motion.div>
-
-      {/* Background Pattern */}
-      <div className={styles.backgroundPattern}></div>
-    </div>
+    </motion.div>
   );
 };
 

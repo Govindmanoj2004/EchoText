@@ -1,0 +1,25 @@
+.userContainer {
+  display: flex;
+  min-height: 100vh;
+  background: #ffffff;
+}
+
+.mainContent {
+  flex: 1;
+  transition: margin-left 0.3s ease;
+  margin-left: 80px; /* Width of collapsed sidebar */
+}
+
+.mainContent.sidebarOpen {
+  margin-left: 280px; /* Width of expanded sidebar */
+}
+
+@media (max-width: 768px) {
+  .mainContent {
+    margin-left: 0;
+  }
+
+  .mainContent.sidebarOpen {
+    margin-left: 280px;
+  }
+}
